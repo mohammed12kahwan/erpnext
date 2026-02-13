@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:10.6
+    container_name: erpnext_db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: erpnext
+      MYSQL_USER: erpnext
+      MYSQL_PASSWORD: erpnext
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: erpnext_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  db_data:

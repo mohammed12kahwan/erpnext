@@ -1,0 +1,81 @@
+FROM python:3.10-slim
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    FRAPPE_USER=frappe
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    npm \
+    nodejs \
+    build-essential \
+    python3-dev \
+    libmariadb-dev \
+    libssl-dev \
+    libffi-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    mariadb-client \
+    redis-tools \
+    supervisor \
+    default-libmysqlclient-dev \
+    libpq-dev \
+    nano \
+    vim \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create frappe user
+RUN useradd -m -s /bin/bash frappe && \
+    mkdir -p /home/frappe && \
+    chown -R frappe:frappe /home/frappe
+
+# Set working directory
+WORKDIR /home/frappe
+
+# Switch to frappe user
+USER frappe
+
+# Install Python packages
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install frappe-bench
+
+# Initialize Frappe Bench
+RUN bench init frappe-bench --python /usr/bin/python3
+
+WORKDIR /home/frappe/frappe-bench
+
+# Clone Frappe and ERPNext repositories
+RUN bench get-app https://github.com/frappe/frappe.git --branch version-15 && \
+    bench get-app https://github.com/frappe/erpnext.git --branch version-15
+
+# Install npm dependencies
+RUN bench setup requirements
+
+# Create default site
+RUN bench new-site development.local \
+    --db-type=mariadb \
+    --db-host=db \
+    --db-port=3306 \
+    --db-name=erpnext \
+    --db-user=erpnext \
+    --db-password=erpnext123 \
+    --admin-password=admin@123 \
+    --no-mariadb-socket
+
+# Install ERPNext on site
+RUN bench --site development.local install-app erpnext
+
+# Enable site
+RUN bench set-config maintenance_mode 0 --site development.local
+
+# Expose ports
+EXPOSE 8000 8001 9000
+
+# Default command
+CMD ["bench", "start"]

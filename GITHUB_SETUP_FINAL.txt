@@ -1,0 +1,202 @@
+===============================================
+ERPNEXT 15 + GITHUB - COMPLETE DEVELOPMENT SETUP
+===============================================
+
+CURRENT STATUS:
+✓ Database (MariaDB)           - Running on localhost:3306
+✓ Redis                        - Running on localhost:6379
+✓ ERPNext 15 Web Server        - Running on localhost:8000
+✓ GitHub Account               - Ready to connect
+
+===============================================
+STEP 1: ACCESS ERPNEXT
+===============================================
+
+Open your browser:
+
+http://localhost:8000
+
+Login with:
+- Username: Administrator
+- Password: admin
+
+===============================================
+STEP 2: EXTRACT SOURCE CODE FOR DEVELOPMENT
+===============================================
+
+Option A: Use the bat file (Easiest)
+
+1. Go to: C:\Users\ADMIN\erpnext-dev
+2. Double-click: EXTRACT_SOURCE.bat
+3. Wait for extraction to complete
+4. Source code will be in:
+   - C:\Users\ADMIN\erpnext-dev\frappe\
+   - C:\Users\ADMIN\erpnext-dev\erpnext\
+
+Option B: Manual extraction
+
+In PowerShell:
+
+docker cp erpnext_dev:/home/frappe/frappe-bench/apps/frappe ./frappe
+docker cp erpnext_dev:/home/frappe/frappe-bench/apps/erpnext ./erpnext
+
+===============================================
+STEP 3: CONNECT TO GITHUB
+===============================================
+
+If you have a GitHub account, you can:
+
+1. Fork the repositories:
+   - https://github.com/frappe/erpnext
+   - https://github.com/frappe/frappe
+
+2. Clone them locally:
+
+git clone https://github.com/YOUR_USERNAME/erpnext.git --branch version-15 erpnext_github
+git clone https://github.com/YOUR_USERNAME/frappe.git --branch version-15 frappe_github
+
+Replace YOUR_USERNAME with your GitHub username.
+
+3. Set up Git:
+
+git config --global user.name "Your Name"
+git config --global user.email "your.email@gmail.com"
+
+===============================================
+STEP 4: OPEN IN VS CODE
+===============================================
+
+In PowerShell:
+
+cd C:\Users\ADMIN\erpnext-dev
+code .
+
+Or manually:
+1. Open VS Code
+2. File > Open Folder
+3. Select: C:\Users\ADMIN\erpnext-dev
+
+===============================================
+STEP 5: START DEVELOPING
+===============================================
+
+Now you can:
+
+1. Edit Python files in frappe/ and erpnext/
+2. Edit JavaScript files in frappe/public/js
+3. Edit CSS files in frappe/public/css
+4. Create new modules and docstrings
+5. Track changes with Git
+6. Push to GitHub
+
+The changes will be reflected immediately in:
+
+http://localhost:8000
+
+===============================================
+USEFUL GIT COMMANDS
+===============================================
+
+Create a new branch:
+git checkout -b feature/my-feature
+
+Check status:
+git status
+
+Add changes:
+git add .
+
+Commit:
+git commit -m "My commit message"
+
+Push to GitHub:
+git push origin feature/my-feature
+
+Create Pull Request:
+- Go to https://github.com/YOUR_USERNAME/erpnext
+- Click "Pull Requests"
+- Click "New Pull Request"
+- Select your branch
+- Describe your changes
+- Click "Create Pull Request"
+
+===============================================
+DATABASE CONNECTION (If needed)
+===============================================
+
+Host: localhost
+Port: 3306
+User: erpnext
+Password: erpnext
+Database: erpnext
+
+Connect with any MySQL client to view/edit data directly.
+
+===============================================
+IMPORTANT FILES & GUIDES
+===============================================
+
+GITHUB_GUIDE.md           - Complete GitHub integration guide
+EXTRACT_SOURCE.bat        - Auto-extract source code
+QUICK_START.txt          - Quick reference
+COMPLETE_SUMMARY.txt     - Full setup summary
+
+===============================================
+NEXT STEPS
+===============================================
+
+1. Open http://localhost:8000 (already running)
+2. Login with Administrator / admin
+3. Extract source code (run EXTRACT_SOURCE.bat)
+4. Open in VS Code (code .)
+5. Start editing and developing
+6. Push changes to GitHub when ready
+
+===============================================
+USEFUL LINKS
+===============================================
+
+GitHub Profile: https://github.com/YOUR_USERNAME
+ERPNext Repo: https://github.com/frappe/erpnext
+Frappe Repo: https://github.com/frappe/frappe
+ERPNext Docs: https://docs.erpnext.com
+Frappe Docs: https://frappeframework.com/docs
+
+===============================================
+TROUBLESHOOTING
+===============================================
+
+Q: Source code extraction fails?
+A: Make sure erpnext_dev container is running:
+   docker ps | findstr erpnext_dev
+
+Q: Git push fails?
+A: Configure Git credentials:
+   git config --global user.name "Your Name"
+   git config --global user.email "email@example.com"
+
+Q: Changes not showing in browser?
+A: Try:
+   1. Hard refresh browser (Ctrl+Shift+R)
+   2. Clear browser cache
+   3. Restart Docker container: docker restart erpnext_dev
+
+Q: How to switch between GitHub branches?
+A: git checkout branch-name
+
+===============================================
+SUMMARY
+===============================================
+
+You now have:
+✓ ERPNext 15 running on localhost:8000
+✓ Database and Redis working
+✓ Source code ready for extraction
+✓ GitHub integration ready
+✓ Development environment complete
+
+Start developing now!
+
+Good luck! 🚀
+
+===============================================

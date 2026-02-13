@@ -1,0 +1,50 @@
+[mysqld]
+# Character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Performance
+max_connections = 200
+max_allowed_packet = 256M
+thread_stack = 192K
+thread_cache_size = 8
+myisam_recover_options = BACKUP
+key_buffer_size = 16M
+table_open_cache = 64
+sort_buffer_size = 512K
+bulk_insert_buffer_size = 16M
+tmp_table_size = 32M
+max_heap_table_size = 32M
+query_cache_limit = 2M
+query_cache_size = 64M
+query_cache_type = 1
+explicit_defaults_for_timestamp = 1
+
+# InnoDB Settings
+default-storage-engine = InnoDB
+innodb_buffer_pool_size = 256M
+innodb_log_file_size = 100M
+innodb_file_per_table = 1
+innodb_flush_log_at_trx_commit = 2
+
+# Binlog
+log_bin = mysql-bin
+binlog_format = row
+expire_logs_days = 10
+
+# Slow Query Log
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+log_queries_not_using_indexes = 1
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = 256M
+
+[mysql]
+# no-auto-rehash
+
+[isamchk]
+key_buffer_size = 16M

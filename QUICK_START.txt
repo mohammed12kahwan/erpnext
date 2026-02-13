@@ -1,0 +1,135 @@
+========================================
+ERPNEXT 15 - QUICK START GUIDE
+========================================
+
+CURRENT STATUS:
+✓ Database (MariaDB 10.6)     - Running on localhost:3306
+✓ Redis                        - Running on localhost:6379
+✓ All requirements             - Ready
+
+========================================
+OPTION 1: DIRECT DEVELOPMENT (RECOMMENDED)
+========================================
+
+Step 1: Install Python 3.10+
+- Download: https://python.org
+- Install it
+
+Step 2: Install Node.js
+- Download: https://nodejs.org
+- Install it
+
+Step 3: Open PowerShell and type:
+
+pip install frappe-bench
+
+Step 4: Go to project folder:
+
+cd C:\Users\ADMIN\erpnext-dev
+
+Step 5: Initialize Bench:
+
+bench init frappe-bench
+cd frappe-bench
+
+Step 6: Get Frappe and ERPNext:
+
+bench get-app https://github.com/frappe/frappe.git --branch version-15
+bench get-app https://github.com/frappe/erpnext.git --branch version-15
+
+Step 7: Create site:
+
+bench new-site development.local --db-type=mariadb
+
+Step 8: Install ERPNext:
+
+bench --site development.local install-app erpnext
+
+Step 9: Start server:
+
+bench start
+
+Step 10: Open browser:
+
+http://localhost:8000
+
+========================================
+LOGIN CREDENTIALS
+========================================
+
+Username: Administrator
+Password: admin
+
+========================================
+OPTION 2: DOCKER (FASTER)
+========================================
+
+Just run in PowerShell:
+
+docker run -d --name erpnext_dev -p 8000:8000 -e DB_HOST=host.docker.internal -e DB_USER=erpnext -e DB_PASSWORD=erpnext -e REDIS_CACHE=host.docker.internal:6379 frappe/erpnext:v15
+
+Wait 2-3 minutes, then open:
+
+http://localhost:8000
+
+========================================
+DATABASE INFORMATION
+========================================
+
+Host: localhost
+Port: 3306
+User: erpnext
+Password: erpnext
+Database: erpnext
+
+========================================
+USEFUL COMMANDS
+========================================
+
+Stop services:
+docker-compose down
+
+Restart:
+docker-compose up -d
+
+View logs:
+docker-compose logs db
+
+Stop ERPNext container:
+docker stop erpnext_dev
+
+Remove everything:
+docker-compose down -v
+docker rm -f erpnext_dev
+
+========================================
+OPEN IN VS CODE
+========================================
+
+After setup, run:
+
+code .
+
+Or manually:
+1. Open VS Code
+2. File > Open Folder
+3. Select: C:\Users\ADMIN\erpnext-dev\frappe-bench
+
+========================================
+SUPPORT
+========================================
+
+All files are in: C:\Users\ADMIN\erpnext-dev
+
+For more help, read:
+- README_SIMPLE.md
+- EASIEST_SETUP.md
+- START_HERE_SIMPLE.md
+
+========================================
+START NOW!
+========================================
+
+Choose Option 1 or 2 and begin development!
+
+Good luck! 🚀
